@@ -1,0 +1,35 @@
+services:
+  profiles_core:
+    restart: on-failure
+    build:
+      context: ./profiles_core
+    ports:
+      - 8000:8000
+    volumes:
+      - ./profiles_core:/app
+    depends_on:
+      - profiles_core_db
+    env_file:
+      - ./.envs/.env_db
+      - ./profiles_core/.envs/.env
+    networks:
+      - profiles_core_db-network
+  profiles_core_db:
+    image: postgres:15.2-alpine
+    ports:
+      - 5433:5432
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    env_file:
+      - ./.envs/.env_db
+    networks:
+      - profiles_core_db-network
+
+volumes:
+  postgres:
+
+networks:
+  profiles_core-network:
+    driver: bridge
+  profiles_core_db-network:
+    driver: bridge
