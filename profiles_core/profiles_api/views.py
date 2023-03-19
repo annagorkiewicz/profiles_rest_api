@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -21,6 +20,18 @@ class HelloAPIView(APIView):
         ]
 
         return Response({'message': 'Hello!', 'an_piview': an_apiview})
+
+    def put(self, request, pk=None):
+        """Handle updating an object"""
+        return Response({'message': 'PUT'})
+
+    def patch(self, request, pk=None):
+        """Handle updating an object"""
+        return Response({'message': 'PATCH'})
+
+    def delete(self, request, pk=None):
+        """Handle updating an object"""
+        return Response({'message': 'DELETE'})
 
     def post(self, request):
         """Create a hello message with our name"""
